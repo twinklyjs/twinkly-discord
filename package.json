@@ -1,0 +1,33 @@
+{
+  "name": "twinkly-discord",
+  "version": "0.0.0",
+  "main": "build/src/index.js",
+  "scripts": {
+    "prepare": "husky",
+    "build": "tsc",
+    "fix": "biome check --write .",
+    "lint": "biome check .",
+    "dev": "tsc --watch & nodemon --watch build/src build/src/index.js",
+    "pretest": "npm run build",
+    "test": "node --test build/test/**.test.js",
+    "start": "node build/src/index.js"
+  },
+  "lint-staged": {
+    "*.ts": "npm run fix"
+  },
+  "keywords": [],
+  "author": "Justin Beckwith <justin.beckwith@gmail.com>",
+  "license": "MIT",
+  "description": "A Discord bot for controlling Twinkly lights",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.17.3",
+    "dotenv": "^16.4.7"
+  }
+}
