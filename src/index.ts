@@ -1,6 +1,6 @@
-import 'dotenv/config';
 import { Client, Events, GatewayIntentBits, MessageFlags } from 'discord.js';
 import { commands } from './commands/index.js';
+import * as config from './config.js';
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -36,4 +36,4 @@ client.on(Events.InteractionCreate, async (interaction) => {
 	}
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(config.token);

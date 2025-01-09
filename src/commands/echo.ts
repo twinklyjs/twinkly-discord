@@ -1,8 +1,8 @@
-import { api } from '@twinklyjs/twinkly';
 import {
 	type ChatInputCommandInteraction,
 	SlashCommandBuilder,
 } from 'discord.js';
+import { api } from '../twinkly.js';
 
 export const data = new SlashCommandBuilder()
 	.setName('echo')
@@ -18,7 +18,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 	const content = {
 		body: interaction.options.getString('content') ?? 'No content provided',
 	};
-	api.init('10.0.0.187');
 	const result = await api.echo(content);
 	await interaction.reply(JSON.stringify(result));
 }

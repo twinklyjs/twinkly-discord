@@ -4,20 +4,14 @@
 
 import { REST, Routes } from 'discord.js';
 import { commands } from './commands/index.js';
-import 'dotenv/config';
+import * as config from './config.js';
 
-const vars = ['DISCORD_TOKEN', 'DISCORD_CLIENT_ID'];
-const [token, clientId] = vars.map((name) => {
-	if (!process.env[name]) {
-		throw new Error(`Env var '${name}' not provided.`);
-	}
-	return process.env[name];
-});
-
-const rest = new REST().setToken(token);
+const rest = new REST().setToken(config.token);
 const body = commands
 	.values()
 	.toArray()
 	.map((command) => command.data.toJSON());
-const data = await rest.put(Routes.applicationCommands(clientId), { body });
+const data = await rest.put(Routes.applicationCommands(config.clientId), {
+	body,
+});
 console.log(data);
