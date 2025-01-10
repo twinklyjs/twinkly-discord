@@ -2,6 +2,7 @@
   "name": "twinkly-discord",
   "version": "0.0.0",
   "main": "build/src/index.js",
+  "type": "module",
   "scripts": {
     "prepare": "husky",
     "build": "tsc",
@@ -10,7 +11,8 @@
     "dev": "tsc --watch & nodemon --watch build/src build/src/index.js",
     "pretest": "npm run build",
     "test": "node --test build/test/**.test.js",
-    "start": "node build/src/index.js"
+    "start": "node build/src/index.js",
+    "register": "tsx src/register.ts"
   },
   "lint-staged": {
     "*.ts": "npm run fix"
@@ -24,9 +26,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "nodemon": "^3.1.9",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   },
   "dependencies": {
+    "@twinklyjs/twinkly": "^0.0.4",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7"
   }
