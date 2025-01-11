@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	InteractionContextType,
 	SlashCommandBuilder,
 } from 'discord.js';
 import { api } from '../twinkly.js';
@@ -7,6 +8,11 @@ import { api } from '../twinkly.js';
 export const data = new SlashCommandBuilder()
 	.setName('echo')
 	.setDescription('Replies with the content you send!')
+	.setContexts([
+		InteractionContextType.BotDM,
+		InteractionContextType.Guild,
+		InteractionContextType.PrivateChannel,
+	])
 	.addStringOption((option) =>
 		option
 			.setName('content')

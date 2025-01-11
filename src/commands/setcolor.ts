@@ -1,5 +1,6 @@
 import {
 	type ChatInputCommandInteraction,
+	InteractionContextType,
 	SlashCommandBuilder,
 } from 'discord.js';
 import { api } from '../twinkly.js';
@@ -7,6 +8,11 @@ import { api } from '../twinkly.js';
 export const data = new SlashCommandBuilder()
 	.setName('setcolor')
 	.setDescription('Sets the color of the lights')
+	.setContexts([
+		InteractionContextType.BotDM,
+		InteractionContextType.Guild,
+		InteractionContextType.PrivateChannel,
+	])
 	.addIntegerOption((option) =>
 		option
 			.setName('red')
