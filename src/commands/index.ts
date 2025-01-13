@@ -1,3 +1,4 @@
+import * as discover from './discover.js';
 import * as echo from './echo.js';
 import * as party from './party.js';
 import * as setcolor from './setcolor.js';
@@ -8,4 +9,5 @@ export const commands = new Map([
 	[setcolor.data.name, setcolor],
 	[setopmode.data.name, setopmode],
 	[party.data.name, party],
+	[discover.data.name, discover],
 ]);

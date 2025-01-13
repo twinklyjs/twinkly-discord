@@ -16,7 +16,7 @@ export const data = new SlashCommandBuilder()
 	]);
 
 export async function execute(interaction: ChatInputCommandInteraction) {
-	const n = await interaction.deferReply();
+	await interaction.deferReply();
 	await api.setLEDOperationMode({ mode: api.LEDOperationMode.RT });
 	const token = api.getToken();
 
@@ -33,6 +33,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 		await realtime.sendFrame(config.twinklyIP, token, nodes);
 		await new Promise((resolve) => setTimeout(resolve, 50));
 	}
-
+	await api.setLEDOperationMode({ mode: api.LEDOperationMode.COLOR });
 	await interaction.editReply('Party mode complete! 🎊');
 }
