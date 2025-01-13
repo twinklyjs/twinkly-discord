@@ -4,7 +4,10 @@ import {
 	SlashCommandBuilder,
 } from 'discord.js';
 import * as config from '../config.js';
+import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
 import { api, realtime } from '../twinkly.js';
+
+export { autocomplete };
 
 export const data = new SlashCommandBuilder()
 	.setName('party')
@@ -14,8 +17,10 @@ export const data = new SlashCommandBuilder()
 		InteractionContextType.Guild,
 		InteractionContextType.PrivateChannel,
 	]);
+addDeviceOption(data);
 
 export async function execute(interaction: ChatInputCommandInteraction) {
+	const ip = await configureIP(interaction);
 	await interaction.deferReply();
 	await api.setLEDOperationMode({ mode: api.LEDOperationMode.RT });
 	const token = api.getToken();
@@ -30,7 +35,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 			});
 		}
 
-		await realtime.sendFrame(config.twinklyIP, token, nodes);
+		await realtime.sendFrame(ip, token, nodes);
 		await new Promise((resolve) => setTimeout(resolve, 50));
 	}
 	await api.setLEDOperationMode({ mode: api.LEDOperationMode.COLOR });

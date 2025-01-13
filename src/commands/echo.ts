@@ -3,7 +3,10 @@ import {
 	InteractionContextType,
 	SlashCommandBuilder,
 } from 'discord.js';
+import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
 import { api } from '../twinkly.js';
+
+export { autocomplete };
 
 export const data = new SlashCommandBuilder()
 	.setName('echo')
@@ -20,10 +23,16 @@ export const data = new SlashCommandBuilder()
 			.setRequired(true),
 	);
 
+addDeviceOption(data);
+
 export async function execute(interaction: ChatInputCommandInteraction) {
+	await configureIP(interaction);
 	const content = {
 		body: interaction.options.getString('content') ?? 'No content provided',
 	};
 	const result = await api.echo(content);
-	await interaction.reply(JSON.stringify(result));
+	console.log;
+	await interaction.reply(
+		`\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\``,
+	);
 }

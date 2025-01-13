@@ -2,7 +2,10 @@ import {
 	type ChatInputCommandInteraction,
 	SlashCommandBuilder,
 } from 'discord.js';
+import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
 import { api } from '../twinkly.js';
+
+export { autocomplete };
 
 export const data = new SlashCommandBuilder()
 	.setName('setopmode')
@@ -22,10 +25,11 @@ export const data = new SlashCommandBuilder()
 				{ name: 'playlist', value: api.LEDOperationMode.PLAYLIST },
 			),
 	);
+addDeviceOption(data);
 
 export async function execute(interaction: ChatInputCommandInteraction) {
+	await configureIP(interaction);
 	const mode = interaction.options.getString('mode') ?? 0;
 	await api.setLEDOperationMode({ mode: mode as api.LEDOperationMode });
-
-	await interaction.reply(JSON.stringify({ mode: mode }));
+	await interaction.reply(`Mode set to ${mode} 🪿`);
 }

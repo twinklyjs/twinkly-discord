@@ -3,7 +3,10 @@ import {
 	InteractionContextType,
 	SlashCommandBuilder,
 } from 'discord.js';
+import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
 import { api } from '../twinkly.js';
+
+export { autocomplete };
 
 export const data = new SlashCommandBuilder()
 	.setName('setcolor')
@@ -35,7 +38,10 @@ export const data = new SlashCommandBuilder()
 			.setMaxValue(255),
 	);
 
+addDeviceOption(data);
+
 export async function execute(interaction: ChatInputCommandInteraction) {
+	await configureIP(interaction);
 	const red = interaction.options.getInteger('red') ?? 0;
 	const green = interaction.options.getInteger('green') ?? 0;
 	const blue = interaction.options.getInteger('blue') ?? 0;
