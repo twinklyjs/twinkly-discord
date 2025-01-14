@@ -30,7 +30,7 @@
     "typescript": "^5.7.2"
   },
   "dependencies": {
-    "@twinklyjs/twinkly": "^0.0.4",
+    "@twinklyjs/twinkly": "^0.0.5",
     "discord.js": "^14.17.3",
     "dotenv": "^16.4.7",
     "table": "^6.9.0"

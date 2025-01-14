@@ -1,10 +1,11 @@
-import { api, discovery } from '@twinklyjs/twinkly';
+import { type api, discovery } from '@twinklyjs/twinkly';
 import type {
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
 	SlashCommandOptionsOnlyBuilder,
 } from 'discord.js';
 import * as config from './config.js';
+import { getClient } from './twinkly.js';
 
 let devices: (api.DeviceDetailsResponse & {
 	ip: string;
@@ -19,11 +20,10 @@ export async function getDevices(clearCache = false) {
 	devices = [];
 	const simpleDetails = await discovery.discover();
 	for (const device of simpleDetails) {
-		api.init(device.ip);
-		const info = await api.getDeviceDetails();
+		const client = getClient(device.ip);
+		const info = await client.getDeviceDetails();
 		devices.push(Object.assign(info, device));
 	}
-	api.init(config.twinklyIP);
 	return devices;
 }
 
@@ -48,12 +48,10 @@ export async function addDeviceOption(builder: SlashCommandOptionsOnlyBuilder) {
 
 export async function configureIP(interaction: ChatInputCommandInteraction) {
 	const deviceOption = interaction.options.getString('device');
-	console.log(deviceOption);
 	const devices = await getDevices();
-	console.log(devices);
-	const ip =
-		devices.find((device) => device.device_name === deviceOption)?.ip ||
-		config.twinklyIP;
-	api.init(ip);
+	const ip = deviceOption
+		? devices.find((device) => device.device_name === deviceOption)?.ip ||
+			config.twinklyIP
+		: config.twinklyIP;
 	return ip;
 }

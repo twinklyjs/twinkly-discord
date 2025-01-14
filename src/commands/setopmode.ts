@@ -3,7 +3,7 @@ import {
 	SlashCommandBuilder,
 } from 'discord.js';
 import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
-import { api } from '../twinkly.js';
+import { api, getClient } from '../twinkly.js';
 
 export { autocomplete };
 
@@ -28,8 +28,9 @@ export const data = new SlashCommandBuilder()
 addDeviceOption(data);
 
 export async function execute(interaction: ChatInputCommandInteraction) {
-	await configureIP(interaction);
+	const ip = await configureIP(interaction);
+	const client = getClient(ip);
 	const mode = interaction.options.getString('mode') ?? 0;
-	await api.setLEDOperationMode({ mode: mode as api.LEDOperationMode });
+	await client.setLEDOperationMode({ mode: mode as api.LEDOperationMode });
 	await interaction.reply(`Mode set to ${mode} 🪿`);
 }
