@@ -1,10 +1,11 @@
+import { LEDOperationMode, sendFrame } from '@twinklyjs/twinkly';
 import {
 	type ChatInputCommandInteraction,
 	InteractionContextType,
 	SlashCommandBuilder,
 } from 'discord.js';
 import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
-import { api, getClient, realtime } from '../twinkly.js';
+import { getClient } from '../twinkly.js';
 
 export { autocomplete };
 
@@ -22,7 +23,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 	const ip = await configureIP(interaction);
 	const client = getClient(ip);
 	await interaction.deferReply();
-	await client.setLEDOperationMode({ mode: api.LEDOperationMode.RT });
+	await client.setLEDOperationMode({ mode: LEDOperationMode.RT });
 	const token = client.getToken();
 
 	if (!token) {
@@ -39,9 +40,9 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 			});
 		}
 
-		await realtime.sendFrame(ip, token, nodes);
+		await sendFrame(ip, token, nodes);
 		await new Promise((resolve) => setTimeout(resolve, 50));
 	}
-	await client.setLEDOperationMode({ mode: api.LEDOperationMode.COLOR });
+	await client.setLEDOperationMode({ mode: LEDOperationMode.COLOR });
 	await interaction.editReply('Party mode complete! 🎊');
 }

@@ -1,10 +1,10 @@
-import { api, discovery, realtime } from '@twinklyjs/twinkly';
+import { TwinklyClient, discover, sendFrame } from '@twinklyjs/twinkly';
 
-const cache = new Map<string, api.TwinklyClient>();
+const cache = new Map<string, TwinklyClient>();
 
 export function getClient(ip: string) {
 	if (!cache.has(ip)) {
-		cache.set(ip, new api.TwinklyClient({ ip }));
+		cache.set(ip, new TwinklyClient({ ip }));
 	}
 	const client = cache.get(ip);
 	if (!client) {
@@ -12,5 +12,3 @@ export function getClient(ip: string) {
 	}
 	return client;
 }
-
-export { api, realtime, discovery };
