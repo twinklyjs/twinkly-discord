@@ -4,7 +4,7 @@ import {
 	SlashCommandBuilder,
 } from 'discord.js';
 import { addDeviceOption, autocomplete, configureIP } from '../deviceCache.js';
-import { api, getClient } from '../twinkly.js';
+import { getClient } from '../twinkly.js';
 
 export { autocomplete };
 

@@ -1,4 +1,4 @@
-import { type api, discovery } from '@twinklyjs/twinkly';
+import { type DeviceDetailsResponse, discover } from '@twinklyjs/twinkly';
 import type {
 	AutocompleteInteraction,
 	ChatInputCommandInteraction,
@@ -7,7 +7,7 @@ import type {
 import * as config from './config.js';
 import { getClient } from './twinkly.js';
 
-let devices: (api.DeviceDetailsResponse & {
+let devices: (DeviceDetailsResponse & {
 	ip: string;
 	port: number;
 	deviceId: string;
@@ -18,7 +18,7 @@ export async function getDevices(clearCache = false) {
 		return devices;
 	}
 	devices = [];
-	const simpleDetails = await discovery.discover();
+	const simpleDetails = await discover();
 	for (const device of simpleDetails) {
 		const client = getClient(device.ip);
 		const info = await client.getDeviceDetails();
