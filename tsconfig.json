@@ -4,6 +4,7 @@
     "target": "ESNext",
     "module": "NodeNext",
     "outDir": "build",
+    "resolveJsonModule": true,
     "declaration": true,
     "skipLibCheck": true
   }

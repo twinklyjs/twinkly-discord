@@ -5,13 +5,13 @@ import {
 	SlashCommandBuilder,
 } from 'discord.js';
 import { table } from 'table';
-import { getDevices } from '../deviceCache.js';
+import { addDeviceOption, getDevices } from '../deviceCache.js';
 
 export const data = new SlashCommandBuilder()
 	.setName('discover')
 	.setDescription('Discover devices running on your network')
 	.setContexts([InteractionContextType.Guild]);
-
+addDeviceOption(data);
 export async function execute(interaction: ChatInputCommandInteraction) {
 	const result = await getDevices(true);
 	const tableData = [['IP Address', 'Device ID', 'Device Name']];
