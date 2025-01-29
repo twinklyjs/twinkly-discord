@@ -21,7 +21,8 @@ export async function autocomplete(interaction: AutocompleteInteraction) {
 			interaction.options.getFocused(),
 		);
 		const choices = colornames.colors.map(
-			(color) => `${color.name} <:${color.name}:${color.ID}>`,
+			// (color) => `${color.name} <:${color.name}:${color.ID}>`,
+			(color) => color.name,
 		);
 		const filtered = choices
 			.filter((choice) => choice.startsWith(focusedValue))
@@ -99,7 +100,6 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 		const blue = colorRGBValues.b ?? 0;
 		await client.setLEDOperationMode({ mode: LEDOperationMode.COLOR });
 		await client.setLEDColor({ red, green, blue });
-		await interaction.reply(`<:${colorName}:${colorRGBValues.ID}>`);
 	} else {
 		await interaction.reply('Please provide a color name or hex code');
 	}
