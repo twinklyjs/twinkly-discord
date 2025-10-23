@@ -1,4 +1,4 @@
-import { TwinklyClient, discover, sendFrame } from '@twinklyjs/twinkly';
+import { TwinklyClient } from '@twinklyjs/twinkly';
 
 const cache = new Map<string, TwinklyClient>();
 
