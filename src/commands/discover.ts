@@ -22,4 +22,4 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 	await interaction.reply(formattedResults);
 }
 
-export async function autocomplete(interaction: AutocompleteInteraction) {}
+export async function autocomplete(_interaction: AutocompleteInteraction) {}

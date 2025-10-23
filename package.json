@@ -22,7 +22,7 @@
   "license": "MIT",
   "description": "A Discord bot for controlling Twinkly lights",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.2.7",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "nodemon": "^3.1.9",
