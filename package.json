@@ -27,7 +27,7 @@
     "lint-staged": "^16.0.0",
     "nodemon": "^3.1.9",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2"
+    "typescript": "^6.0.0"
   },
   "dependencies": {
     "@twinklyjs/twinkly": "^0.0.6",
